@@ -1,0 +1,44 @@
+[gd_scene load_steps=8 format=4 uid="uid://bevengj8p6gjt"]
+
+[ext_resource type="Texture2D" uid="uid://brtoych3j41n1" path="res://Sprites/Grass.png" id="1_cehg0"]
+[ext_resource type="Script" path="res://camera_2d.gd" id="2_mmaub"]
+[ext_resource type="PackedScene" uid="uid://w3bunp7wv8sb" path="res://player.tscn" id="2_q2ask"]
+[ext_resource type="PackedScene" uid="uid://nno6gbueng7f" path="res://enemy.tscn" id="3_26yyr"]
+[ext_resource type="PackedScene" uid="uid://dged7k4k08cdu" path="res://ui.tscn" id="5_kmbxx"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xow7m"]
+texture = ExtResource("1_cehg0")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
+0:1/0 = 0
+0:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
+
+[sub_resource type="TileSet" id="TileSet_0sycl"]
+tile_size = Vector2i(64, 64)
+physics_layer_0/collision_layer = 1
+sources/0 = SubResource("TileSetAtlasSource_xow7m")
+
+[node name="Node" type="Node"]
+
+[node name="TileMapLayer" type="TileMapLayer" parent="."]
+tile_map_data = PackedByteArray("AAAAAAgAAAAAAAAAAAABAAgAAAAAAAAAAAACAAgAAAAAAAAAAAADAAgAAAAAAAAAAAAEAAgAAAAAAAAAAAAFAAgAAAAAAAAAAAAGAAgAAAAAAAAAAAAHAAgAAAAAAAAAAAAIAAgAAAAAAAAAAAAJAAgAAAAAAAAAAAAKAAgAAAAAAAAAAAALAAgAAAAAAAAAAAAMAAgAAAAAAAAAAAANAAgAAAAAAAAAAAAOAAgAAAAAAAAAAAAPAAgAAAAAAAAAAAAQAAgAAAAAAAAAAAARAAgAAAAAAAAAAAAAAAkAAAAAAAEAAAABAAkAAAAAAAEAAAACAAkAAAAAAAEAAAADAAkAAAAAAAEAAAAEAAkAAAAAAAEAAAAFAAkAAAAAAAEAAAAGAAkAAAAAAAEAAAAHAAkAAAAAAAEAAAAIAAkAAAAAAAEAAAAJAAkAAAAAAAEAAAAKAAkAAAAAAAEAAAALAAkAAAAAAAEAAAAMAAkAAAAAAAEAAAANAAkAAAAAAAEAAAAOAAkAAAAAAAEAAAAPAAkAAAAAAAEAAAAQAAkAAAAAAAEAAAARAAkAAAAAAAEAAAA=")
+tile_set = SubResource("TileSet_0sycl")
+
+[node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("player")]
+position = Vector2(544, 376)
+limit_bottom = 640
+limit_smoothed = true
+position_smoothing_enabled = true
+script = ExtResource("2_mmaub")
+player = NodePath("../Player")
+
+[node name="Player" parent="." instance=ExtResource("2_q2ask")]
+position = Vector2(544, 352)
+
+[node name="Enemy" parent="." instance=ExtResource("3_26yyr")]
+position = Vector2(352, 480)
+
+[node name="UI" parent="." instance=ExtResource("5_kmbxx")]
+
+[connection signal="lives_updated" from="Player" to="UI" method="set_lives_text"]

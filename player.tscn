@@ -1,0 +1,28 @@
+[gd_scene load_steps=7 format=3 uid="uid://w3bunp7wv8sb"]
+
+[ext_resource type="Texture2D" uid="uid://dg4dkyelhifi1" path="res://Sprites/Player.png" id="1_hbii6"]
+[ext_resource type="Script" path="res://player.gd" id="1_ulnmr"]
+[ext_resource type="AudioStream" uid="uid://b8v7afeoibjcp" path="res://Audio/Hit.wav" id="3_btn2i"]
+[ext_resource type="AudioStream" uid="uid://dqmui56y2phw8" path="res://Audio/Jump.wav" id="4_586cs"]
+[ext_resource type="AudioStream" uid="uid://b61jlg8lht5j7" path="res://Audio/Lose.wav" id="5_r1dhy"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tpluh"]
+size = Vector2(64, 64)
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_ulnmr")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_hbii6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_tpluh")
+
+[node name="HitSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_btn2i")
+
+[node name="JumpSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_586cs")
+
+[node name="DealthSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_r1dhy")
